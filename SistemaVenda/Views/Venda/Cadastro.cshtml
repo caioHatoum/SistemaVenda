@@ -74,7 +74,7 @@
             <span asp-validation-for="Total" class="text-danger"></span>
         </div>
     </div>
-    <textarea asp-for="JsonProdutos" id="txtJsonProdutos" class="col form-control" ></textarea>
+    <input asp-for="JsonProdutos" id="txtJsonProdutos" class="col form-control" type="hidden"/>
     <br />
     <div class="row">
         <button type="button" class="btn btn-info" onclick="Novo();">Novo</button>
@@ -123,7 +123,7 @@
         var precoUn = document.getElementById('txtPrecoUn').value
         var subTotal = precoUn * document.getElementById('txtQtd').value
 
-        document.getElementById("txtSubTotal").value = subTotal.toFixed(2)
+        document.getElementById("txtSubTotal").value = fixaDuasCasasDec(subTotal)
     }
     function AddProduto() {
         var cdProduto = document.getElementById('cboProduto')
@@ -150,14 +150,16 @@
         var total = Number(document
             .getElementById('txtTotal')
             .value
-            .toString()
-            .replace(",", ".")) +
+            .toString().replace(",",".")) +
             Number(subTotal)
         alert(total)
-        document.getElementById("txtTotal").value = total
+        document.getElementById("txtTotal").value = fixaDuasCasasDec(total).replace(".",",")
         document.getElementById("txtQtd").value = ""
         document.getElementById("txtSubTotal").value = ""
         document.getElementById("txtPrecoUn").value = ""
         document.getElementById("cboProduto").value = -1
+    }
+    function fixaDuasCasasDec(num) {
+        return parseFloat(Math.round(num * 100) / 100).toFixed(2)
     }
 </script>
