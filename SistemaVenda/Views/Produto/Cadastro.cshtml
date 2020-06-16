@@ -1,0 +1,58 @@
+﻿
+@{
+    var disabled = (Model.Codigo == null) ? "disabled" : string.Empty;
+    ViewData["Title"] = "Cadastro";
+}
+<h2>Produtos</h2>
+<hr />
+@model SistemaVenda.Models.ProdutoViewModel
+
+<form asp-controller="Produto" asp-action="Cadastro" method="post">
+    <input type="hidden" asp-for="Codigo" value="@Model.Codigo" />
+    <div class="form-group">
+        <div class="col-4">
+            <div class="row">
+                <label>Descrição</label>
+                <input asp-for="Descricao" type="text" value="@Model.Descricao" class="form-control" />
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <label>Quantidade</label>
+                <input asp-for="Quantidade" type="number" value="@Model.Quantidade" class="form-control" />
+                <span asp-validation-for="Quantidade" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <label>Valor</label>
+                <input asp-for="Valor" type="text" value="@Model.Valor" class="form-control" />
+                <span asp-validation-for="Valor" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <label>Categoria</label>
+                <select asp-for="CodigoCategoria" class="form-control input-group-lg " asp-items="@Model.ListaCategorias" ></select>
+                <span asp-validation-for="CodigoCategoria" class="text-danger"></span>
+            </div>
+        </div> 
+        <br />
+        <div class="col">
+            <button type="button" class="btn btn-info" onclick="Novo();">Novo</button>
+            <button type="submit" class="btn btn-success">Gravar</button>
+            <button type="button" class="btn btn-warning" onclick="Listagem();">Listagem</button>
+            <button type="button" class="btn btn-danger" onclick="Excluir(@Model.Codigo);" @disabled>Excluir</button>
+        </div>
+    </div>
+
+</form>
+<script>
+    function Novo() {
+        Request("Cadastro");
+    }
+    function Listagem() {
+        Request("");
+    }
+    function Excluir(i) {
+        Request("Excluir/" + i);
+    }
+    function Request(req) {
+        window.location = window.origin + "/Produto/" + req
+    }
+</script>
