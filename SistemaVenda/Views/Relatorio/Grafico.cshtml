@@ -1,1 +1,27 @@
-﻿
+﻿@{ 
+    ViewData["Title"] = "Relatorio";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+<h1>Total de vendas por produtos</h1>
+<canvas id="myChart"></canvas>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'pie',
+
+        // The data for our dataset
+        data: {
+            labels: ['Banana Nanica', 'coca-cola', 'x-tudo'],
+            datasets: [{
+                backgroundColor: ['rgb(255, 0, 0)', 'rgb(186, 0, 0)','rgb(132, 0, 0)'],
+                borderColor: '#ffff',
+                data: [15, 10, 5]
+            }]
+        },
+
+        // Configuration options go here
+        options: {}
+    });
+</script>
